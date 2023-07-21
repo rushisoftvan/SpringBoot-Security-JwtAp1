@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
+@EnableMethodSecurity(prePostEnabled = true)
 public class JwtUtil {
 
     @Value("${app.jwt-secret-key}")

@@ -39,8 +39,8 @@ public class SecurityFilter extends OncePerRequestFilter {
                 boolean isValid = jwtUtil.validateToken(accessToken, userDetails.getUsername());
                 if(isValid){
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(),userDetails.getAuthorities());
+                    //final object store in security context with userDetails(username,password)
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
                 }
             }
 

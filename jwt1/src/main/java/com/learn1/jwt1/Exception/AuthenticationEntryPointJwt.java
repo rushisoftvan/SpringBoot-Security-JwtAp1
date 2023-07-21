@@ -15,14 +15,16 @@ import java.io.IOException;
 
 @Slf4j
 @Component
+
 public class AuthenticationEntryPointJwt implements AuthenticationEntryPoint {
+
 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         log.info("<<<<<<<<< AuthenticationEntryPointJwt");
         //log.info("Authentication exception info ::" , authException);
-        //handlerExceptionResolver.resolveException(request, response, null, authException);
+      // handlerExceptionResolver.resolveException(request, response, null, authException);
         log.info("AuthenticationEntryPointJwt >>>>>>");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized User!");
     }

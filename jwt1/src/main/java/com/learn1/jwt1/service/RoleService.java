@@ -15,10 +15,13 @@ public class RoleService {
 
     private  final RoleRepository roleRepository;
     public Integer addRole(CreateRoleRequest createRoleRequest){
+        log.info("<<<<<<<<< addRole()");
+
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setName(createRoleRequest.getName());
         RoleEntity savedData = this.roleRepository.save(roleEntity);
         log.debug("saved Role Data {}",savedData);
+        log.debug("addRole() >>>>>>>");
         return savedData.getId();
     }
 

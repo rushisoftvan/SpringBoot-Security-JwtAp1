@@ -29,6 +29,7 @@ public class JpaUserDetailsService implements UserDetailsService {
       //  return new JpaUserDetails(userEntity, List.of(jpaGrantedAuthority));
 
         JpaGrantedAuthority jpaGrantedAuthority = new JpaGrantedAuthority(userEntity.getRole());
+        log.info("loadUserByUsername() >>>>>");
         return new MyUserDetails(userEntity, List.of(jpaGrantedAuthority));
     }
 
