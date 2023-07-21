@@ -20,7 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-      private final AuthenticationEntryPoint authenticationEntryPoint;
+    public static final String ADMIN = "ADMIN";
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+
 
       private final SecurityFilter securityFilter;
     public static final String[] PUBLIC_URLS = {
@@ -49,7 +51,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeRequests()
                 .antMatchers(PUBLIC_URL).permitAll()
-                .antMatchers("/t").hasAuthority("ADMIN")
+                .antMatchers("/t").hasAuthority(ADMIN)
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
