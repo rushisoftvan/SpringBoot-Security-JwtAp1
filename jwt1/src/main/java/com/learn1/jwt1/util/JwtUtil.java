@@ -30,7 +30,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuer(ISSUER)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(10)))
+                .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1)))
                 .signWith(SignatureAlgorithm.HS256, jwtSecretKey.getBytes())
                 .compact();
         log.info("Token {}", token);

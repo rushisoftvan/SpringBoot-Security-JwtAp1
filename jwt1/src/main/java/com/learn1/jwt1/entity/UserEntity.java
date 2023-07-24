@@ -36,6 +36,9 @@ public class UserEntity {
     @JoinColumn(name = "ROLE_ID")
     private RoleEntity role;
 
+    @OneToOne(mappedBy ="user" )
+    private RefreshTokenEntity refreshToken;
+
     @PrePersist
     public void beforeInsert(){
         this.registrationDateTime = LocalDateTime.now();

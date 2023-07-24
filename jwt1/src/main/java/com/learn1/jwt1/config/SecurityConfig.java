@@ -29,7 +29,7 @@ public class SecurityConfig {
             "/register"
 
     };
-    public static final String[] PUBLIC_URL = {"/register", "/login"};
+    public static final String[] PUBLIC_URL = {"/register","/login","/refreshJwtToken"};
 
     @Bean
     /**

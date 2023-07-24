@@ -6,9 +6,12 @@ import com.learn1.jwt1.entity.UserEntity;
 import com.learn1.jwt1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +40,15 @@ public class UserService {
         log.info("registerUser() >>>>>");
          return registerdUser.getId();
 
+    }
+  
+    public UserEntity getUserByName(String userName){
+        Optional<UserEntity> userByUsername = this.userRepository.getUserByUsername(userName);
+        if(userByUsername.isPresent()){
+            log.info("username {}", userByUsername.get().getEmail());
+            return userByUsername.get();
+        }
+        throw new UsernameNotFoundException("user is not found");
     }
 
 }

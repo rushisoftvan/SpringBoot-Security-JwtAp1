@@ -1,9 +1,14 @@
 package com.learn1.jwt1.controller;
 
 
+import com.learn1.jwt1.dto.request.RefreshJwtRequest;
 import com.learn1.jwt1.dto.request.UserLoginRequest;
 import com.learn1.jwt1.dto.request.UserRegisterRequest;
 import com.learn1.jwt1.dto.response.ApiResponse;
+import com.learn1.jwt1.dto.response.JwtResponse;
+import com.learn1.jwt1.entity.RefreshTokenEntity;
+import com.learn1.jwt1.entity.UserEntity;
+import com.learn1.jwt1.service.RefreshTokenService;
 import com.learn1.jwt1.service.UserService;
 import com.learn1.jwt1.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +32,8 @@ public class UserController {
 
 
     private final UserService userService;
+
+    private final RefreshTokenService refreshTokenService;
 
     @PostMapping(value = "/register")
     public ResponseEntity<Integer> register(@RequestBody UserRegisterRequest userRegisterRequest){
@@ -53,11 +60,31 @@ public class UserController {
          * AuthenticationEntryPointJwt class , we can also handle with global exception handler
          */
         Authentication authenticate = this.authenticationManager.authenticate(authentication);
-        String token = this.jwtUtil.generateToken(userLoginRequest.getEmail());
 
-        return new ApiResponse(token, HttpStatus.OK.value());
+
+
+        String token = this.jwtUtil.generateToken(userLoginRequest.getEmail());
+        RefreshTokenEntity refreshTokenEntity = this.refreshTokenService.creatRefreshToken(userLoginRequest.getEmail());
+
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setJwtToken(token);
+        jwtResponse.setRefershToken(refreshTokenEntity.getRefreshToken());
+
+        return new ApiResponse(jwtResponse, HttpStatus.OK.value());
 
     }
+
+    @PostMapping("/refreshJwtToken")
+    public ApiResponse refreshJwtToken(@RequestBody RefreshJwtRequest refreshJwtRequest){
+        RefreshTokenEntity refreshTokenEntity = this.refreshTokenService.verifyRefreshToken(refreshJwtRequest.getRefreshToken());
+        UserEntity user = refreshTokenEntity.getUser();
+        String refreshJwttoken = this.jwtUtil.generateToken(user.getEmail());
+        JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setJwtToken(refreshJwttoken);
+        jwtResponse.setRefershToken(refreshTokenEntity.getRefreshToken());
+        return new ApiResponse(jwtResponse,HttpStatus.OK.value());
+    }
+
 
     @GetMapping("/t")
     public String getTest(){

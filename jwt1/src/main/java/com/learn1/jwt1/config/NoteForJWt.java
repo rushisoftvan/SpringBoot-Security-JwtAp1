@@ -19,7 +19,7 @@ public class NoteForJWt {
        when client login request to the server . server will cross check the data to the database if data is right then
        server will create token and send to the client in response Header client will store to the cookies or database.
        token is unreadable format.
-       next time client send the requestwithsend token  to server
+       next time client send the request with send token  to server
        server read this token from request and validate token if token is not available then it says login again .
        if token is valid then it will  send response
 
@@ -33,7 +33,7 @@ public class NoteForJWt {
        for every token have some time (for token have validity)
 
        state means data
-       IN stateless server notbstore the data of client
+       IN stateless server not be store the data of client
 
     Both are use the realtime as per the requiremnt
 
