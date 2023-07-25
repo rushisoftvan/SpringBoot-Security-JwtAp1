@@ -8,7 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +31,12 @@ public class GlobelExceptonHandler {
     public ApiResponse handleResourceNotFound(ResourceNotFoundException ex){
         String message = ex.getMessage();
         return  new ApiResponse(Arrays.asList(message),HttpStatus.NOT_FOUND.value());
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ApiResponse<Object> handle(CustomException ex){
+        String error = ex.getMessage();
+        return new ApiResponse<>(Arrays.asList(error),HttpStatus.UNAUTHORIZED.value());
     }
 
 }

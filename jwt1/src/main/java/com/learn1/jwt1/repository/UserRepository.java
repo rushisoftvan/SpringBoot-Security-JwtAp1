@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity,Integer> {
 
-    @Query("SELECT ue FROM UserEntity ue join fetch ue.role join fetch ue.refreshToken WHERE ue.email = :email")
+    @Query("SELECT ue FROM UserEntity ue join fetch ue.role left join fetch ue.refreshToken WHERE ue.email = :email")
     Optional<UserEntity> getUserByUsernameForRefreshToken(@Param("email") String username);
 
     @Query("SELECT ue FROM UserEntity ue join fetch ue.role WHERE ue.email = :email")

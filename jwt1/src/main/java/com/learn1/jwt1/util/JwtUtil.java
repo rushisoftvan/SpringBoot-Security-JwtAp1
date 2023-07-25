@@ -31,7 +31,7 @@ public class JwtUtil {
                 .setIssuer(ISSUER)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1)))
-                .signWith(SignatureAlgorithm.HS256, jwtSecretKey.getBytes())
+                .signWith(SignatureAlgorithm.HS256, jwtSecretKey)
                 .compact();
         log.info("Token {}", token);
 
@@ -40,7 +40,7 @@ public class JwtUtil {
 
     //Read Claims(read token/parser token)
     public Claims getClaims(String token) {
-        Claims claims = Jwts.parser().setSigningKey(jwtSecretKey.getBytes())
+        Claims claims = Jwts.parser().setSigningKey(jwtSecretKey)//jwtSecretKey.getBytes()
                 .parseClaimsJws(token)
                 .getBody();
         log.info("username {}", claims.getSubject());
