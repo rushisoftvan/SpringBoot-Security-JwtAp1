@@ -18,14 +18,15 @@ import java.io.IOException;
 
 public class AuthenticationEntryPointJwt implements AuthenticationEntryPoint {
 
-
+    private HandlerExceptionResolver handlerExceptionResolver;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         log.info("<<<<<<<<< AuthenticationEntryPointJwt");
         //log.info("Authentication exception info ::" , authException);
-      //handlerExceptionResolver.resolveException(request, response, null, authException);
+        response.addHeader("WWW-Authenticate","Basic realm=\"Realm\"");
+      handlerExceptionResolver.resolveException(request, response, null, authException);
         log.info("AuthenticationEntryPointJwt >>>>>>");
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized User!");
+        //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized User!");
     }
 }

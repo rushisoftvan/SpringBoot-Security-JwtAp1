@@ -70,6 +70,7 @@ public class JwtUtil {
     //Validate username in token and database,expDate
     public boolean validateToken(String token, String username) {
         String tokenUsername = getUsername(token);
+        log.info("token username {}",tokenUsername);
         return (tokenUsername.equals(username) && !isTokenExp(token));
     }
 }

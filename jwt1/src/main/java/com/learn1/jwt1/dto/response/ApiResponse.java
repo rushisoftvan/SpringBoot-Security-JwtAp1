@@ -13,7 +13,8 @@ public class ApiResponse<T> {
 
     private Integer statusCode;
 
-    List<String> errors;
+    private List<String> errors;
+
 
     public ApiResponse(T data,Integer statusCode){
         this.data=data;
@@ -24,7 +25,5 @@ public class ApiResponse<T> {
         this.errors=errors;
         this.statusCode=statusCode;
     }
-
-
 
 }
