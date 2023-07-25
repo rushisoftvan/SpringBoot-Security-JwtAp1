@@ -23,8 +23,9 @@ public class JwtUtil {
 
     //1. generate token
     public String generateToken(String subject) {
-
-        System.out.println("subject = " + subject);
+        log.info("<<<<<<<<< generateToken()");
+        //System.out.println("subject = " + subject);
+         log.debug("subject {}",subject);
         String token = Jwts.builder()
                 .setId(ID)
                 .setSubject(subject)
@@ -34,7 +35,7 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256, jwtSecretKey)
                 .compact();
         log.info("Token {}", token);
-
+        log.info("generateToken() >>>>>>>");
         return token;
     }
 
@@ -43,7 +44,7 @@ public class JwtUtil {
         Claims claims = Jwts.parser().setSigningKey(jwtSecretKey)//jwtSecretKey.getBytes()
                 .parseClaimsJws(token)
                 .getBody();
-        log.info("username {}", claims.getSubject());
+        log.debug("username {}", claims.getSubject());
         log.info("id {}", claims.getId());
         log.info("expireDate {}", claims.getExpiration());
         return claims;

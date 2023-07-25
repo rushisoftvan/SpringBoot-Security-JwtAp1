@@ -12,6 +12,7 @@ import com.learn1.jwt1.service.RefreshTokenService;
 import com.learn1.jwt1.service.UserService;
 import com.learn1.jwt1.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final AuthenticationManager authenticationManager;
@@ -36,19 +38,22 @@ public class UserController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Integer> register(@RequestBody UserRegisterRequest userRegisterRequest){
+    public ResponseEntity<Integer> register(@RequestBody UserRegisterRequest userRegisterRequest) {
+        log.debug("<<<<<<<<< register()");
         Integer userId = this.userService.registerUser(userRegisterRequest);
+        log.info("saved userId {}",userId);
+        log.debug("register() >>>>>>>");
         return ResponseEntity.ok(userId);
     }
 
     @GetMapping("/test")
     @PreAuthorize("hasAuthority('CUSTOMER')")
-    public String getName(){
+    public String getName() {
         return "rushikesh";
     }
 
     @PostMapping("/login")
-    public ApiResponse<String> loginUser(@RequestBody UserLoginRequest userLoginRequest){
+    public ApiResponse<String> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
 
         // authenticate user using authentication manager with help of email and password
 
@@ -60,7 +65,6 @@ public class UserController {
          * AuthenticationEntryPointJwt class , we can also handle with global exception handler
          */
         Authentication authenticate = this.authenticationManager.authenticate(authentication);
-
 
 
         String token = this.jwtUtil.generateToken(userLoginRequest.getEmail());
@@ -75,25 +79,27 @@ public class UserController {
     }
 
     @PostMapping("/refreshJwtToken")
-    public ApiResponse refreshJwtToken(@RequestBody RefreshJwtRequest refreshJwtRequest){
+    public ApiResponse refreshJwtToken(@RequestBody RefreshJwtRequest refreshJwtRequest) {
+        log.debug("<<<<<<<<< refreshJwtToken()");
         RefreshTokenEntity refreshTokenEntity = this.refreshTokenService.verifyRefreshToken(refreshJwtRequest.getRefreshToken());
         UserEntity user = refreshTokenEntity.getUser();
         String refreshJwttoken = this.jwtUtil.generateToken(user.getEmail());
         JwtResponse jwtResponse = new JwtResponse();
         jwtResponse.setJwtToken(refreshJwttoken);
         jwtResponse.setRefershToken(refreshTokenEntity.getRefreshToken());
-        return new ApiResponse(jwtResponse,HttpStatus.OK.value());
+        log.debug("refreshJwtToken() >>>>>>>");
+        return new ApiResponse(jwtResponse, HttpStatus.OK.value());
     }
 
 
     @GetMapping("/t")
-    public String getTest(){
+    public String getTest() {
         return "t";
     }
 
     @GetMapping("/customer")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String getCustomer(){
+    public String getCustomer() {
         return "customer";
     }
 
