@@ -15,5 +15,8 @@ public class NoteForSecurityExeption {
     *)  Authorization Exception
           - AccessDeniedException -if user have no access to handle to this api
 
+         we have to use HandlerExceptionResolver to handle the exception because if we will not use we do not get the proper exception .
+
+
      */
 }

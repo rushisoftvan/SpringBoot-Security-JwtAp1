@@ -39,10 +39,10 @@ public class UserController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<Integer> register(@RequestBody UserRegisterRequest userRegisterRequest) {
-        log.debug("<<<<<<<<< register()");
+        log.info("<<<<<<<<< register()");
         Integer userId = this.userService.registerUser(userRegisterRequest);
         log.info("saved userId {}",userId);
-        log.debug("register() >>>>>>>");
+        log.info("register() >>>>>>>");
         return ResponseEntity.ok(userId);
     }
 
@@ -54,7 +54,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ApiResponse<String> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
-
+           log.info("<<<<<<<<< loginUser()");
         // authenticate user using authentication manager with help of email and password
 
         Authentication authentication =
@@ -73,21 +73,21 @@ public class UserController {
         JwtResponse jwtResponse = new JwtResponse();
         jwtResponse.setJwtToken(token);
         jwtResponse.setRefershToken(refreshTokenEntity.getRefreshToken());
-
+        log.debug("loginUser() >>>>>>>");
         return new ApiResponse(jwtResponse, HttpStatus.OK.value());
 
     }
 
     @PostMapping("/refreshJwtToken")
     public ApiResponse refreshJwtToken(@RequestBody RefreshJwtRequest refreshJwtRequest) {
-        log.debug("<<<<<<<<< refreshJwtToken()");
+        log.info("<<<<<<<<< refreshJwtToken()");
         RefreshTokenEntity refreshTokenEntity = this.refreshTokenService.verifyRefreshToken(refreshJwtRequest.getRefreshToken());
         UserEntity user = refreshTokenEntity.getUser();
         String refreshJwttoken = this.jwtUtil.generateToken(user.getEmail());
         JwtResponse jwtResponse = new JwtResponse();
         jwtResponse.setJwtToken(refreshJwttoken);
         jwtResponse.setRefershToken(refreshTokenEntity.getRefreshToken());
-        log.debug("refreshJwtToken() >>>>>>>");
+        log.info("refreshJwtToken() >>>>>>>");
         return new ApiResponse(jwtResponse, HttpStatus.OK.value());
     }
 
