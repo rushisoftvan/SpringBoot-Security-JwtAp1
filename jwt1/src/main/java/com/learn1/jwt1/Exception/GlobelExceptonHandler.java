@@ -1,6 +1,8 @@
 package com.learn1.jwt1.Exception;
 
 import com.learn1.jwt1.dto.response.ApiResponse;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -60,4 +62,25 @@ public class GlobelExceptonHandler {
      public ApiResponse<Object> handleAuthenticationException(Exception ex){
         return new ApiResponse<>(Arrays.asList(USERNAME_OR_PASSWORD_INCORRECT),HttpStatus.UNAUTHORIZED.value());
      }
+     
+     @ExceptionHandler(JwtException.class)
+     public ApiResponse<Object> handleJwtException(JwtException ex){
+        //List<String> finalerror = new ArrayList<>();
+        //if(ex instanceof ExpiredJwtException){
+           // finalerror.add("jwt token has been exprired");
+        //}
+        //else{
+        //    finalerror.add(ex.getMessage());
+        //}
+         String  errorMessage = ex.getMessage();
+         return new ApiResponse<>(Arrays.asList(errorMessage),HttpStatus.UNAUTHORIZED.value());
+
+     }
+
+     @ExceptionHandler(ExpiredJwtException.class)
+     public ApiResponse<Object> handleExpiredJwtException(ExpiredJwtException ex){
+         return new ApiResponse<>(Arrays.asList("JWT Token has been Expired"),HttpStatus.UNAUTHORIZED.value());
+     }
+
+
 }

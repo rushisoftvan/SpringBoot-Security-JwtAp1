@@ -1,0 +1,111 @@
+                                     Oauth
+-------------------------------------------------------------------------
+why Oauth
+   - If we are using 100 application then we have to remember all credentials of 100 applicatons
+     It is not possible to remember it that's why Oauth concept come in  picture
+----------------------------------------------------------------------------
+process - for that we have to send the request to authorization server
+           and get the token from the authorization server and the validate this token to in resourceServer(backend api)
+-----------------------------------------------------------------------------------------------------------------------------------
+what we have to learn here
+  - how does the client get  token(Grant Type)
+  - how does the resource server(backend) validate and get data with token
+---------------------------------------------------------------------------------
+there are three type of grant type it is the way of obtain token
+ 1.Authorization code grant type(With PCKE)
+ 2.client credentials grant type
+ 3.refresh token grant type
+
+ implicit, password-> Deprecated not use
+-----------------------------------------------------------------------------
+                          Authorization code grant type
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+scenario - user say I want to use this application. this application redirect to authorization server for login
+           After login done we have to say to Authorization server to redirect to user on  resource server(backend api) page we have to set this thing to set on authorization server to on which page you have to redirect on resource server
+           server send Authorization code it is kind of password or kind of secret.Client get this Authorization
+           code and make post request with this Authorization code and client credential(Client id and secret key) to authorization server and get the access token
+           from authorization server.
+Note : user credential(username,password) and client Credential is(Client id and secret key)
+---------------------------------------------------------------------------------------------------------------------
+                               Client Credentials grant type
+---------------------------------------------------------------------------------------------------------------------
+some Type no user available  to access the api some software like kubernetes want to use the backend api at that time
+need to token  to communicate with the backend(resource severe) at time client(like kubernetes) send the credential
+to authorization server.and authorization server send the token to client(like kubernetes)
+---------------------------------------------------------------------------------
+                           refresh token grant type
+------------------------------------------------------------------------------
+Access Token is expire after some time like 15 to 20 minute so we have to
+login that. If you have refresh Token you send the request to application
+and application memorize the refresh token . If refresh token is validate.
+application send back to the authorization code to authorization server will send the new access token and refresh
+token this process is done again again .if refresh token is expire then we have to
+login again.
+Note Client application does not have idea about user 's username and password.
+----------------------------------------------------------------------------------------
+token type
+token is user for to apply authorization rule on resource server(backend)
+opaque: tokens do not have contains any data
+non opaque: tokens that have contains data inside
+            jwt is implementation of  non opaque token
+-------------------------------------------------------------------------------------------
+In case of opaque token the authorization server will always implement
+the so called introspection end point .this end point will read the token and send the details
+of token give the information if token is opaque token then client have to hit the end point
+on authorization server and get the information about the token
+In case of opaque nonopaque token dont need to call the introspection end point because  nonopaque token
+having information.
+------------------------------------------------------------------------------------------------------
+Flow which I have understood flow oAuth-
+   Important Role in oauth
+-------------------------------------------------------------------------------------------------
+USer-  who can use the application
+Client - means anything like  Angular, react,who can use the backend
+RESOURCE SERVER - backend (Api)  where we write the authorization logic(apply authorization rule)
+Authorization Server - It can be any thing like Github,Email,Facbook
+
+flow - when user use any application application need Authenticated user so then client redirect user to the github
+       Authorization server authenticated user and send the information to client or we can say send the token to client c
+       Authorization server have to manage the both user and client information(means Angular, React)
+--------------------------------------------------------------------------------------------------------------
+WHAT ARE THE PCKE
+  - here client credential is not safe so it is very difficult to safe the client credential.so we have to use
+    PCKE To use for the hase the client credential to
+------------------------------------------------------------------------------------------------------------------
+                                     OAuth2 Authorization server
+------------------------------------------------------------------------------------------------------------------
+We will learn here about Authorization server
+- In spring EcoSystem have separate framework to create authorization server : spring security Oauth2 Authorization server
+-
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+Step  t develop spring boot application with O Auth.o security using github account
+____________________________________________________________________________________________________________________
+1.create github account.
+2. Go to developer setting in git hub and create OAuth2.o application with application with application Url and callback uri
+  (profile-->setting-> Oauthapps)
+  homepage url -> http://localhost:9090/
+  Autorization call back url- http://localhost:9090/
+3.After application got created it will provide client id and client secret .Note down client id, and client secret
+4. create spring boot application with below dependencies
+        1.spring boot starter web
+        2.spring cloud starter Oauth2
+        3.spring boot starter security
+5.Use @EnableAuth2sso annotation on spring boot starter class.
+6.use @RestController annotation at springboot starter class  to represent that class as distributed component and write
+  one distributed method.
+  @RestController
+  public class WebRestController
+  {
+    public String welocmePage()
+    {
+      return "welcome rusikesh";
+    }
+  }
+
+

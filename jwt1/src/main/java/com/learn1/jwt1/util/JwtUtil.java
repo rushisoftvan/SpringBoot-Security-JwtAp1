@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +33,7 @@ public class JwtUtil {
                 .setIssuer(ISSUER)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1)))
-                .signWith(SignatureAlgorithm.HS256, jwtSecretKey)
+                .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encode(jwtSecretKey.getBytes()))
                 .compact();
         log.info("Token {}", token);
         log.info("generateToken() >>>>>>>");
@@ -41,7 +42,7 @@ public class JwtUtil {
 
     //Read Claims(read token/parser token)
     public Claims getClaims(String token) {
-        Claims claims = Jwts.parser().setSigningKey(jwtSecretKey)//jwtSecretKey.getBytes()
+        Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encode(jwtSecretKey.getBytes()))//jwtSecretKey.getBytes()
                 .parseClaimsJws(token)
                 .getBody();
         log.debug("username {}", claims.getSubject());
