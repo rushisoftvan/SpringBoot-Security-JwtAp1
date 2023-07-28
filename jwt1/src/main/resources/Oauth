@@ -66,7 +66,7 @@ Flow which I have understood flow oAuth-
 USer-  who can use the application
 Client - means anything like  Angular, react,who can use the backend
 RESOURCE SERVER - backend (Api)  where we write the authorization logic(apply authorization rule)
-Authorization Server - It can be any thing like Github,Email,Facbook
+Authorization Server - It can be any thing like Github,Email,Facebook
 
 flow - when user use any application application need Authenticated user so then client redirect user to the github
        Authorization server authenticated user and send the information to client or we can say send the token to client c
@@ -88,7 +88,7 @@ We will learn here about Authorization  server
 
 
 -------------------------------------------------------------------------------------------------------------------------
-Step  t develop spring boot application with O Auth.o security using github account
+Step  t develop spring boot application with O Auth.o security using github account  (JavaCodingAsist)
 ____________________________________________________________________________________________________________________
 1.create github account.
 2. Go to developer setting in git hub and create OAuth2.o application with application with application Url and callback uri
@@ -106,9 +106,9 @@ ________________________________________________________________________________
   @RestController
   public class WebRestController
   {
-    public String welocmePage()
+    public String welcomePage()
     {
-      return "welcome rusikesh";
+          return "welcome rushikesh";
     }
   }
 

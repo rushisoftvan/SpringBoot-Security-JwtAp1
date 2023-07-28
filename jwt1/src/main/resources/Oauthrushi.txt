@@ -3,7 +3,7 @@
 O Auth 2.O, which stands for open Authorization security ,mechanism
 -> this mechanism is used to provide access for users to access
   website/application
-->This mechanism is used by Amazon,Google,Facebook,microsoft etc
+->This mechanism is used by Amazon,Google,Facebook,microsoft etc.
 ->O auth is authorization framework
 -> Authentication is the process of verifying credential of
   the user
@@ -14,9 +14,9 @@ O Auth 2.O, which stands for open Authorization security ,mechanism
  that provide tokens to check authorization for client request
 -----------------------------------------------------------------------------------------
 O auth2.0 Roles
----------------
+-----------------------|
 the idea of roles is part of the core specification of the o.Auth 2.0 authorization framework
 Resource owner: the user or system that owns the protected resource and grant
 access them.
 ------------------------------------------------------------------------------
-step to devlope     spring boot application with O auth 2.o security
+step to develop spring  boot  application  with  O  auth 2.o security
