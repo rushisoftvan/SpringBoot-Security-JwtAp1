@@ -32,6 +32,10 @@ Note : user credential(username,password) and client Credential is(Client id and
 some Type no user available  to access the api some software like kubernetes want to use the backend api at that time
 need to token  to communicate with the backend(resource severe) at time client(like kubernetes) send the credential
 to authorization server.and authorization server send the token to client(like kubernetes)
+
+second understating - when client want to use any backend first client have to register itself on authorization server
+
+
 ---------------------------------------------------------------------------------
                            refresh token grant type
 ------------------------------------------------------------------------------
@@ -74,7 +78,7 @@ WHAT ARE THE PCKE
 ------------------------------------------------------------------------------------------------------------------
                                      OAuth2 Authorization server
 ------------------------------------------------------------------------------------------------------------------
-We will learn here about Authorization server
+We will learn here about Authorization  server
 - In spring EcoSystem have separate framework to create authorization server : spring security Oauth2 Authorization server
 -
 
