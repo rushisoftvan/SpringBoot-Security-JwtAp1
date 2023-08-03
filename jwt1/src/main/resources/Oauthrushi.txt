@@ -20,3 +20,23 @@ Resource owner: the user or system that owns the protected resource and grant
 access them.
 ------------------------------------------------------------------------------
 step to develop spring  boot  application  with  O  auth 2.o security
+
+
+-------------------------------------------------------------------------------
+                   Talk about access token
+
+   info : we  can increase the validity of the access token for that you have to use in client
+           accessTokenbvalidateSecodmethod
+
+   info :  we can put Authorization server and Resource server in one application but it is not put in real word
+          application we can put both in example or poc application. In real word application both are separate
+
+  info : there are two approach token introspection where the resource server call end point on the authorization
+          server to find out the details about the token including token is valid token or not
+        and Other approach that will black boarding approach but it is not use in real word where we use the share database
+
+  info : usually userDetails service bean is available in context security will get the object from the context
+        but this thing is not happen with refresh token grant_type so we have to use explicit
+        add in  endpoint method  endpoint.userDetailsService(userDetailService)
+
+info about token introspection first we will use

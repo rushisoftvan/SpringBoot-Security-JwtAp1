@@ -92,16 +92,16 @@ Step  t develop spring boot application with O Auth.o security using github acco
 ____________________________________________________________________________________________________________________
 1.create github account.
 2. Go to developer setting in git hub and create OAuth2.o application with application with application Url and callback uri
-  (profile-->setting-> Oauthapps)
+  (profile-->setting-> Oauth apps)
   homepage url -> http://localhost:9090/
-  Autorization call back url- http://localhost:9090/
+  Authorization call back url- http://localhost:9090/
 3.After application got created it will provide client id and client secret .Note down client id, and client secret
 4. create spring boot application with below dependencies
         1.spring boot starter web
         2.spring cloud starter Oauth2
         3.spring boot starter security
 5.Use @EnableAuth2sso annotation on spring boot starter class.
-6.use @RestController annotation at springboot starter class  to represent that class as distributed component and write
+6.use @RestController annotation at spring boot starter class  to represent that class as distributed component and write
   one distributed method.
   @RestController
   public class WebRestController

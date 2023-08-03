@@ -45,9 +45,10 @@ public class JwtUtil {
         Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encode(jwtSecretKey.getBytes()))//jwtSecretKey.getBytes()
                 .parseClaimsJws(token)
                 .getBody();
-        log.debug("username {}", claims.getSubject());
-        log.info("id {}", claims.getId());
-        log.info("expireDate {}", claims.getExpiration());
+        //log.debug("username {}", claims.getSubject());
+        //log.info("id {}", claims.getId());
+        //log.info("expireDate {}", claims.getExpiration());
+        log.info("username {}","id {}","expireDate {}",claims.getSubject(),claims.getId(),claims.getExpiration());
         return claims;
     }
 
