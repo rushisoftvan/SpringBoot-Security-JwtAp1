@@ -32,7 +32,7 @@ public class SecurityConfig {
             "/register"
 
     };
-    public static final String[] PUBLIC_URL = {"/register","/login","/refreshJwtToken"};
+    public static final String[] PUBLIC_URL = {"/register","/login","/refreshJwtToken","/swagger-ui/**","/swagger-ui.html/**","/v3/api-docs/**"};
 
     @Bean
     /**

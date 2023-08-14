@@ -37,6 +37,7 @@ step to develop spring  boot  application  with  O  auth 2.o security
 
   info : usually userDetails service bean is available in context security will get the object from the context
         but this thing is not happen with refresh token grant_type so we have to use explicit
-        add in  endpoint method  endpoint.userDetailsService(userDetailService)
+        add in  endpoint method  endpoint.userDetailsService(userDetailService) when we have to call for the
+        new authorization token with refresh token
 
 info about token introspection first we will use

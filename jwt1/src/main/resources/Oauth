@@ -82,10 +82,12 @@ We will learn here about Authorization  server
 - In spring EcoSystem have separate framework to create authorization server : spring security Oauth2 Authorization server
 -
 
+keytools is provide the by the java
 
-
-
-
+   keytool  -genkeypair -alias ssia -keylg  RSA -keypass ssia123 -keystore ssia.jks -storepass ssia123
+        genkeypair is used to creat pair of -private andd public key
+        use to cryptographic alogradihm use to crate keypair
+        AFTER RUN THIS CODE ONE FILE IS CREATEd and public key value will be
 
 -------------------------------------------------------------------------------------------------------------------------
 Step  t develop spring boot application with O Auth.o security using github account  (JavaCodingAsist)
